@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { List, ListItem, ListItemText } from '@material-ui/core'
+import { List } from '@material-ui/core'
+import ApartmentCard from '../../components/ApartmentCard'
 
 const ApartmentIndex = () => {
   const [apartments, setApartments] = useState([])
@@ -17,7 +18,7 @@ const ApartmentIndex = () => {
         console.log(response.data)
       })
       .catch(error => {
-        alert(error)
+        console.log(error)
       })
   }, [])
 
@@ -27,17 +28,17 @@ const ApartmentIndex = () => {
       <List>
         {apartments && apartments.map((apt) => {
           return(
-            <ListItem key={apt.id}>
-              <ListItemText>{apt.street}</ListItemText>
-              <ListItemText>{apt.city}</ListItemText>
-              <ListItemText>{apt.state}</ListItemText>
-              <ListItemText>{apt.manager}</ListItemText>
-              <ListItemText>{apt.email}</ListItemText>
-              <ListItemText>{apt.price}</ListItemText>
-              <ListItemText>{apt.bedrooms}</ListItemText>
-              <ListItemText>{apt.bathrooms}</ListItemText>
-              <ListItemText>{apt.pets}</ListItemText>
-            </ListItem>
+            <ApartmentCard
+            key={apt.id}
+            street={apt.street}
+            city={apt.city}
+            state={apt.state}
+            manager={apt.manager}
+            email={apt.email}
+            price={apt.price}
+            bedrooms={apt.bedrooms}
+            bathrooms={apt.bathrooms}
+            pets={apt.pets}/>
           )
         })}
       </List>

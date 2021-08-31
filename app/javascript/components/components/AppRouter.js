@@ -14,11 +14,6 @@ import axios from 'axios'
 import AppContext from '../context/AppContext'
 
 const styles = theme => ({
-  router: {
-    display: 'flex',
-    flexFlow: 'row',
-    justifyContent: 'center'
-  },
   buttons: {
     paddingLeft: '200px'
   }

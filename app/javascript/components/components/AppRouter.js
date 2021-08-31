@@ -12,6 +12,8 @@ import { Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import axios from 'axios'
 import AppContext from '../context/AppContext'
+import NavBar from './NavBar'
+import SignUp from '../pages/SignUp'
 
 const styles = theme => ({
   buttons: {
@@ -36,11 +38,11 @@ const AppRouter = ({classes}) => {
 
   return(
     <Router className={classes.router}>
-      <Button onClick={() => logOut()} className={classes.buttons}>Log out with custom function</Button>
-      <Button onClick={() => {console.log(context)}} className={classes.buttons}>Click me for context</Button>
+      <NavBar/>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path='/apartmentindex' component={ApartmentIndex}/>
+        <Route path='/signup' component={SignUp}/>
         <Route component={InvalidPath}/>
       </Switch>
     </Router>

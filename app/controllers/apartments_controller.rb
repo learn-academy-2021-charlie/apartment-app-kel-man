@@ -1,4 +1,5 @@
 class ApartmentsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
 
   def index
@@ -11,6 +12,10 @@ class ApartmentsController < ApplicationController
     else
       head 401
     end
+  end
+
+  def show
+    @apartment = Apartment.find(params[:id])
   end
 
   private

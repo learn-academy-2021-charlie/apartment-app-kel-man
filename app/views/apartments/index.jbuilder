@@ -9,5 +9,6 @@ json.apartments @apartments do |apt|
   json.bathrooms apt.bathrooms
   json.pets apt.pets
   json.user_id apt.user_id
+  json.id apt.id
   json.updated_at apt.updated_at.iso8601
 end

@@ -34,7 +34,7 @@ RSpec.describe "Apartments", type: :request do
     apt2
   end
 
-  describe "GET /apartments" do
+  describe 'index' do
     let(:request){ get '/apartments' }
     let(:expected_response){
       [{
@@ -48,6 +48,7 @@ RSpec.describe "Apartments", type: :request do
         "bathrooms" => apt1.bathrooms,
         "pets" => apt1.pets,
         "user_id" => user1.id,
+        "id" => apt1.id,
         "updated_at" => apt1.updated_at.iso8601
       }, {
         "street" => apt2.street,
@@ -60,6 +61,7 @@ RSpec.describe "Apartments", type: :request do
         "bathrooms" => apt2.bathrooms,
         "pets" => apt2.pets,
         "user_id" => user1.id,
+        "id" => apt2.id,
         "updated_at" => apt2.updated_at.iso8601
       }]
     }
@@ -71,7 +73,7 @@ RSpec.describe "Apartments", type: :request do
     end
   end
 
-  describe "POST /apartments" do
+  describe 'create' do
     let(:request){ post '/apartments', params: {
       apartment: {
         street: apt1.street,
@@ -113,6 +115,28 @@ RSpec.describe "Apartments", type: :request do
         sign_out user1
         expect{ request }.to change{ Apartment.count }.by 0
       end
+    end
+  end
+
+  describe 'show' do
+    let(:request) { get "/apartments/#{apt2.id}" }
+    let(:expected_response) { {
+      street: apt2.street,
+      city: apt2.city,
+      state: apt2.state,
+      manager: apt2.manager,
+      email: apt2.email,
+      price: apt2.price,
+      bedrooms: apt2.bedrooms,
+      bathrooms: apt2.bathrooms,
+      pets: apt2.pets,
+      user_id: apt2.user_id,
+      id: apt2.id,
+      updated_at: apt2.updated_at.iso8601
+    }.to_json }
+    it 'shows apartment2 in the database' do
+      request
+      expect(response.body).to eq expected_response
     end
   end
 end

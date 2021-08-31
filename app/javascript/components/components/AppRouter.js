@@ -1,29 +1,48 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  NavLink
 } from 'react-router-dom'
 import Home from '../pages/Home'
 import InvalidPath from '../pages/InvalidPath'
 import ApartmentIndex from '../pages/Apartment/ApartmentIndex'
 import { Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 import axios from 'axios'
+import AppContext from '../context/AppContext'
 
-const AppRouter = () => {
-  const logout = () => {
+const styles = theme => ({
+  router: {
+    display: 'flex',
+    flexFlow: 'row',
+    justifyContent: 'center'
+  },
+  buttons: {
+    paddingLeft: '200px'
+  }
+})
+
+const AppRouter = ({classes}) => {
+  const context = useContext(AppContext)
+
+  const logOut = () => {
     axios({
       headers: {
         'Content-Type': 'application/json',
       },
-      method: 'DELETE',
+      method: 'GET',
       url: '/users/sign_out',
-    }).then(() => (window.location = '/'))
+    })
+      .then(() => (window.location = '/'))
+      .catch((err) => console.log(err))
   }
 
   return(
-    <Router>
-      <Button onClick={() => logout()}>Log out Button Heres More Text</Button>
+    <Router className={classes.router}>
+      <Button onClick={() => logOut()} className={classes.buttons}>Log out with custom function</Button>
+      <Button onClick={() => {console.log(context)}} className={classes.buttons}>Click me for context</Button>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path='/apartmentindex' component={ApartmentIndex}/>
@@ -33,4 +52,4 @@ const AppRouter = () => {
   )
 }
 
-export default AppRouter
+export default withStyles(styles)(AppRouter)

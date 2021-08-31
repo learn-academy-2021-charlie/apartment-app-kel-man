@@ -1,12 +1,11 @@
 class ApartmentsController < ApplicationController
-  skip_before_action :verify_authenticity_token
-  before_action :authenticate_user!
 
   def index
     @apartments = Apartment.all
   end
 
   def create
+    :authenticate_user!
     if current_user
       @apartment = current_user.apartments.create(apartment_params)
     else

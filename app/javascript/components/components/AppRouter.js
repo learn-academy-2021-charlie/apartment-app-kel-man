@@ -43,7 +43,6 @@ const AppRouter = ({classes}) => {
   return(
     <Router className={classes.router}>
       <NavBar/>
-      <Button onClick={() => console.log(context)} className={classes.context}>ContextLogger</Button>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path='/apartmentindex' component={ApartmentIndex}/>

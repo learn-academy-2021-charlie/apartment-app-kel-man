@@ -1,0 +1,12 @@
+json.street @apartment.street
+json.city @apartment.city
+json.state @apartment.state
+json.manager @apartment.manager
+json.email @apartment.email
+json.price @apartment.price
+json.bedrooms @apartment.bedrooms
+json.bathrooms @apartment.bathrooms
+json.pets @apartment.pets
+json.user_id @apartment.user_id
+json.id @apartment.id
+json.updated_at @apartment.updated_at.iso8601

@@ -61,8 +61,8 @@ const SignUp = ({history}) => {
 
   const onSubmit = e => {
     e.preventDefault()
-    const data = { ...values }
-    data.password_confirmation = values.password
+    const data = { ...inputs }
+    data.password_confirmation = inputs.password
     axios({
       headers: {
         contentType: 'application/json',
@@ -147,17 +147,17 @@ const SignUp = ({history}) => {
             </Grid>
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={onSubmit}
           >
             Sign Up
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2" onClick={() => (window.location='/signin')}>
+              <Link href="/signin" variant="body2" >
                 Already have an account? Sign in
               </Link>
             </Grid>

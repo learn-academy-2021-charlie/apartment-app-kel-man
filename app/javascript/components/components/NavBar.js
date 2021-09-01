@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import AppContext from '../context/AppContext'
 import { Box, Button, CssBaseline, Typography, Drawer } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
@@ -17,6 +17,7 @@ const styles = theme => ({
     alignSelf: 'center',
     justifySelf: 'flex-start',
     marginLeft: '20px',
+    color: 'beige'
   },
   buttons: {
     justifyContent: 'flex-end',
@@ -38,14 +39,20 @@ const NavBar = ({ classes, history }) => {
     }).then(() => (window.location = '/'))
   }
 
+  const loggedIn = context.logged_in
+
+  useEffect(() => {
+    console.log(context)
+    console.log(loggedIn)
+  }, [])
   return (
     <>
       <Drawer variant="permanent" anchor="top">
         <Box className={classes.container}>
-          {context.loggedIn && <Typography className={classes.welcome}>Welcome, {context.current_user}</Typography>}
-          {!context.loggedIn && <div />}
+          {loggedIn && <Typography className={classes.welcome}>Welcome, {context.current_user.email}</Typography>}
+          {!loggedIn && <div />}
           <div className={classes.buttons}>
-            {!context.loggedIn && (
+            {!loggedIn && (
               <>
                 <Button color="inherit" edge="start" onClick={() => history.push('/')}>
                   Home
@@ -57,19 +64,19 @@ const NavBar = ({ classes, history }) => {
                 See all listings
               </Button>
             </>
-            {context.loggedIn && (
+            {loggedIn && (
               <>
                 <Button color="inherit" edge="start" onClick={() => history.push('/')}>
                   Home
                 </Button>
               </>
             )}
-            {context.loggedIn && (
+            {loggedIn && (
               <Button color="inherit" onClick={() => history.push('/apartments/new')}>
                 Add new listing!
               </Button>
             )}
-            {!context.loggedIn && (
+            {!loggedIn && (
               <>
                 <Button color="inherit" onClick={() => history.push('/signup')}>
                   Sign Up
@@ -79,7 +86,7 @@ const NavBar = ({ classes, history }) => {
                 </Button>
               </>
             )}
-            {context.loggedIn && (
+            {loggedIn && (
               <>
                 <Button color="inherit" onClick={logout}>
                   Log Out

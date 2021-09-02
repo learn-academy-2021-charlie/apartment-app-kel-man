@@ -139,4 +139,27 @@ RSpec.describe "Apartments", type: :request do
       expect(response.body).to eq expected_response
     end
   end
+
+  describe 'update' do
+    let(:request) { patch "/apartments/#{apt2.id}", params: {
+      apartment: {
+        street: 'updated street'
+      }
+    } }
+    it 'updates the apartment object' do
+      request
+      expect(response.status).to eq 200
+    end
+    let(:user2){ User.create!({
+      email: 'user2@email.com',
+      password: 'passwordencrypted'
+    } )}
+    context 'wrong user' do
+      it 'does not allow user to edit other peoples apartments' do
+        sign_in(user2)
+        request
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end

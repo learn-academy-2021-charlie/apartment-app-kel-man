@@ -8,6 +8,11 @@ class ApartmentsController < ApplicationController
     :authenticate_user!
     if current_user
       @apartment = current_user.apartments.create(apartment_params)
+      if @apartment
+        head 200
+      else
+        head 422
+      end
     else
       head 401
     end
@@ -15,6 +20,17 @@ class ApartmentsController < ApplicationController
 
   def show
     @apartment = Apartment.find(params[:id])
+  end
+
+  def update
+    :authenticate_user!
+    apartment = Apartment.find(params[:id])
+    if current_user.id == apartment.user_id
+      apartment.update(apartment_params)
+      head 200
+    else
+      head 401
+    end
   end
 
   private

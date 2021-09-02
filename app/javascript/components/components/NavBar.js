@@ -72,7 +72,7 @@ const NavBar = ({ classes, history }) => {
               </>
             )}
             {loggedIn && (
-              <Button color="inherit" onClick={() => history.push('/apartments/new')}>
+              <Button color="inherit" onClick={() => history.push('/newapartmentform')}>
                 Add new listing!
               </Button>
             )}

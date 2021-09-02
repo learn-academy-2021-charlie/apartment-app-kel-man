@@ -15,6 +15,7 @@ import AppContext from '../context/AppContext'
 import NavBar from './NavBar'
 import SignUp from '../pages/SignUp'
 import SignIn from '../pages/SignIn'
+import NewApartmentForm from '../pages/NewApartmentForm'
 
 const styles = theme => ({
   buttons: {
@@ -44,10 +45,12 @@ const AppRouter = ({classes}) => {
     <Router className={classes.router}>
       <NavBar/>
       <Switch>
-        <Route exact path="/" component={Home}/>
+        {context.logged_in && <Route exact path="/" component={Home}/> }
+        {!context.logged_in && <Route exact path="/" component={SignIn}/>}
         <Route path='/apartmentindex' component={ApartmentIndex}/>
         <Route path='/signup' component={SignUp}/>
         <Route path='/signin' component={SignIn}/>
+        <Route path='/newapartmentform' component={NewApartmentForm}/>
         <Route component={InvalidPath}/>
       </Switch>
     </Router>

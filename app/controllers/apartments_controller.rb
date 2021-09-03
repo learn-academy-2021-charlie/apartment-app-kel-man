@@ -33,6 +33,17 @@ class ApartmentsController < ApplicationController
     end
   end
 
+  def destroy
+    :authenticate_user!
+    apartment = Apartment.find(params[:id])
+    if current_user.id == apartment.user_id
+      apartment.delete
+      head 200
+    else
+      head 401
+    end
+  end
+
   private
   def apartment_params
     params.require(:apartment).permit(:street, :city, :state, :manager, :email, :price, :bedrooms, :bathrooms, :pets)

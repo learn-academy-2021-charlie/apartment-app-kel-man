@@ -162,4 +162,11 @@ RSpec.describe "Apartments", type: :request do
       end
     end
   end
+
+  describe 'destroy' do
+    let(:request) { delete "/apartments/#{apt2.id}" }
+    it 'deletes apt2 from the database' do
+      expect{ request }.to change{ Apartment.count }.by -1
+    end
+  end
 end

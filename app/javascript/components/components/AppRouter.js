@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 import Home from '../pages/Home'
 import InvalidPath from '../pages/InvalidPath'
-import ApartmentIndex from '../pages/Apartment/ApartmentIndex'
+import ApartmentIndex from '../pages/ApartmentIndex'
 import { Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import axios from 'axios'
@@ -16,6 +16,7 @@ import NavBar from './NavBar'
 import SignUp from '../pages/SignUp'
 import SignIn from '../pages/SignIn'
 import NewApartmentForm from '../pages/NewApartmentForm'
+import EditApartmentForm from '../pages/EditApartmentForm'
 
 const styles = theme => ({
   buttons: {
@@ -51,6 +52,7 @@ const AppRouter = ({classes}) => {
         <Route path='/signup' component={SignUp}/>
         <Route path='/signin' component={SignIn}/>
         <Route path='/newapartmentform' component={NewApartmentForm}/>
+        <Route path='/editapartment/:id' component={EditApartmentForm}/>
         <Route component={InvalidPath}/>
       </Switch>
     </Router>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { List } from '@material-ui/core'
-import ApartmentCard from '../../components/ApartmentCard'
+import ApartmentCard from '../components/ApartmentCard'
 
 const ApartmentIndex = () => {
   const [apartments, setApartments] = useState([])
@@ -38,7 +38,9 @@ const ApartmentIndex = () => {
             price={apt.price}
             bedrooms={apt.bedrooms}
             bathrooms={apt.bathrooms}
-            pets={apt.pets}/>
+            pets={apt.pets}
+            user_id={apt.user_id}
+            id={apt.id}/>
           )
         })}
       </List>

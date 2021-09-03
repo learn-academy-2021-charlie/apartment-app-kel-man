@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { withStyles } from '@material-ui/core/styles'
+import AppContext from '../context/AppContext'
 import {
   Card,
   CardActions,
@@ -10,6 +11,7 @@ import {
   Button,
   Typography
 } from '@material-ui/core/'
+import axios from 'axios'
 
 const styles = theme => ({
   root: {
@@ -28,7 +30,25 @@ const styles = theme => ({
   },
 })
 
-const ApartmentCard = ({classes, street, city, state, manager, email, price, bedrooms, bathrooms, pets }) => {
+const ApartmentCard = ({classes, street, city, state, manager, email, price, bedrooms, bathrooms, pets, id, user_id }) => {
+  const context = useContext(AppContext)
+
+  const deleteApartment = () => {
+    axios({
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'DELETE',
+      url: `/apartments/${id}`,
+    })
+      .then(response => {
+        window.location = '/apartmentindex'
+      })
+      .catch(err => {
+        console.log(err)
+        alert("Failed to delete")
+      })
+  }
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -66,11 +86,16 @@ const ApartmentCard = ({classes, street, city, state, manager, email, price, bed
               {pets}
             </Typography>
           </AccordionDetails>
+          <AccordionDetails>
+            {context.current_user.id === user_id && (
+              <CardActions>
+                <Button color="primary" size="small" onClick={() => window.location = `/editapartment/${id}`}>Edit</Button>
+                <Button color="secondary" size="small" onClick={deleteApartment}>DELETE</Button>
+              </CardActions>
+            )}
+          </AccordionDetails>
         </Accordion>
       </CardContent>
-      {/* <CardActions> */}
-      {/*   <Button size="small">Learn More</Button> */}
-      {/* </CardActions> */}
     </Card>
   );
 }
